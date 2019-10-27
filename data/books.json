@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "title": "The Handmaid's Tale",
+    "author": "Margaret Atwood",
+    "year": 1985,
+    "pages": 311,
+    "genre": ["fystopian fiction", "feminist science fiction"]
+  },
+  {
+    "id": "2",
+    "title": "Becoming",
+    "author": "Michelle Obama",
+    "year": 2018,
+    "pages": 400,
+    "genre": ["Biography"]
+  },
+  {
+    "id": "3",
+    "title": "Can't Hurt Me",
+    "author": "David Goggins",
+    "year": 2018,
+    "pages": 448,
+    "genre": ["Biography"]
+  }
+]
