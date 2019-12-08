@@ -1,0 +1,155 @@
+{
+  "consumer": {
+    "name": "Books"
+  },
+  "provider": {
+    "name": "Reviews"
+  },
+  "interactions": [
+    {
+      "description": "a request for all books stats summary",
+      "providerState": "has book statistics",
+      "request": {
+        "method": "GET",
+        "path": "/stats"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": [
+          {
+            "id": "1",
+            "totalReviews": 100,
+            "averageRating": 7.5
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          },
+          "$.body[*].id": {
+            "match": "type"
+          },
+          "$.body[*].totalReviews": {
+            "match": "type"
+          },
+          "$.body[*].averageRating": {
+            "match": "type"
+          }
+        }
+      },
+      "metadata": null
+    },
+    {
+      "description": "a request for book statistics",
+      "providerState": "Has no interaction",
+      "request": {
+        "method": "GET",
+        "path": "/stats"
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+        }
+      },
+      "metadata": null
+    },
+    {
+      "description": "a request for book reviews summary",
+      "providerState": "has reviews",
+      "request": {
+        "method": "GET",
+        "path": "/reviews",
+        "query": "bookId[]=1",
+        "matchingRules": {
+          "$.query.bookId[]": {
+            "min": 1
+          },
+          "$.query.bookId[][*].*": {
+            "match": "type"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": [
+          {
+            "bookId": "1",
+            "headline": "a wonderful story",
+            "message": "It is so intriguing",
+            "ipAddress": "127.0.0.13",
+            "gender": "F",
+            "anonymous": true,
+            "createdAt": "2015-08-06T16:53:10.123+01:00"
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          },
+          "$.body[*].headline": {
+            "match": "type"
+          },
+          "$.body[*].message": {
+            "match": "type"
+          },
+          "$.body[*].ipAddress": {
+            "match": "regex",
+            "regex": "^(\\d{1,3}\\.)+\\d{1,3}$"
+          },
+          "$.body[*].gender": {
+            "match": "regex",
+            "regex": "F|M"
+          },
+          "$.body[*].anonymous": {
+            "match": "type"
+          },
+          "$.body[*].createdAt": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          }
+        }
+      },
+      "metadata": null
+    },
+    {
+      "description": "a request for books review",
+      "providerState": "Has no interaction",
+      "request": {
+        "method": "GET",
+        "path": "/reviews",
+        "query": "bookId[]=1",
+        "matchingRules": {
+          "$.query.bookId[]": {
+            "min": 1
+          },
+          "$.query.bookId[][*].*": {
+            "match": "type"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+        }
+      },
+      "metadata": null
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
